@@ -1,4 +1,19 @@
-all:
-	g++ -c -I include src/main.cpp src/selectionsorta.cpp src/selectionsortb.cpp src/mergesort.cpp src/quicksort.cpp
-	g++ -o sortingalgs main.o selectionsorta.o selectionsortb.o mergesort.o quicksort.o
-	rm *.o
+CC := g++
+CFLAGS := -Wall -Wextra
+INCL := include
+
+SRCS := $(wildcard src/*.cpp)
+OBJS := $(patsubst %.cpp, %.o, $(SRCS))
+
+TARGET := SortingAlgs
+
+all: $(TARGET)
+
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $^
+
+%.o: %.cpp
+	$(CC) $(CFLAGS) -I $(INCL) -c $< -o $@
+
+clean:
+	rm -f $(OBJS) $(TARGET)

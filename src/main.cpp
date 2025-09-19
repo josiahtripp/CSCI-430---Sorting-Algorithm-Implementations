@@ -30,7 +30,7 @@ std::vector<int> randVector(std::size_t size)
     std::vector<int> rVec;
     rVec.reserve(size);
 
-    for(int i = 0; i < size; i++)
+    for(long unsigned int i = 0; i < size; i++)
     {    
         rVec.push_back(rand() % (MAX_INT + 1));
     }
@@ -42,20 +42,20 @@ std::vector<int> randVector(std::size_t size)
 void printVector(std::vector<int> &ar)
 {
     // Number of elements per row of printed list
-    const static int rowElements = 15;
+    const static unsigned int rowElements = 15;
     
     // Number of total rows
-    int rows = (int) ceil((double) ar.size() / rowElements);
+    unsigned int rows = (unsigned int) ceil((double) ar.size() / rowElements);
 
     // Print vector
     std::cout << "[ ";
-    for(int i = 0; i < rows; i++){
+    for(unsigned int i = 0; i < rows; i++){
 
         if(i != 0){
             std::cout << "  ";
         }
 
-        int j = i * rowElements;
+        unsigned int j = i * rowElements;
         while(j < ar.size() - 1 && j < (i + 1) * rowElements){
 
             std::cout << ar[j] << ", ";
@@ -70,6 +70,19 @@ void printVector(std::vector<int> &ar)
     }
 }
 
+bool checkSort(std::vector<int> &ar)
+{
+    int lastElement = ar[0];
+
+    for(int element : ar){
+
+        if (element < lastElement){
+            return false;
+        }
+        lastElement = element;
+    }
+    return true;
+}
 
 int main()
 {
@@ -92,16 +105,23 @@ int main()
         "quick sort"
     };
 
-    for(int i = 0; i < NUM_ALGS; i++){
+    for(int i = 0; i < NUM_ALGS; i++)
+    {
         std::cout << "Generating random vector...(" << ARR_SIZE << " elements)\n";
         std::vector<int> ar = randVector(ARR_SIZE);
-        std::cout << ar.size();
+
         std::cout << "Sorting vector with " << names[i] << "...\n";
         algorithms[i](ar);
 
         std::cout << "Printing sorted vector...\n";
         printVector(ar);
-        std::cout << "\n";
+
+        if(checkSort(ar)){
+            std::cout << "Valid Sort\n\n";
+        }
+        else{
+            std::cout << "Invalid Sort\n\n";
+        }
     }
 
     return 0;
