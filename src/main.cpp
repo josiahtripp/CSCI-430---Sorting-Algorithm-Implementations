@@ -7,21 +7,29 @@
 #include <selectionsortb.h>
 #include <mergesort.h>
 #include <quicksort.h>
+#include <insertionsort.h>
+#include <bubblesorta.h>
+#include <bubblesortb.h>
+#include <bubblesortc.h>
+#include <countingsort.h>
+#include <radixsort.h>
+
 
 // Define NULL
 #ifndef NULL
     #define NULL (void) 0
 #endif
 
-// Ensure value of RAND_MAX for proper random integer generation bounds
+// Maximum and minimum random range
 #define MAX_INT 1000
+#define MIN_INT -1000
 
 
 // Size of array to be sorted
 #define ARR_SIZE 100
 
 // Total number of sorting algorithms to be tested
-#define NUM_ALGS 4
+#define NUM_ALGS 10
 
 // Returns a vector of random integers
 // Number of elements = param[int size]
@@ -32,7 +40,7 @@ std::vector<int> randVector(std::size_t size)
 
     for(long unsigned int i = 0; i < size; i++)
     {    
-        rVec.push_back(rand() % (MAX_INT + 1));
+        rVec.push_back(rand() % (MAX_INT - MIN_INT + 1) + MIN_INT);
     }
 
     return rVec;
@@ -94,7 +102,13 @@ int main()
         selectionsorta,
         selectionsortb,
         mergesort,
-        quicksort
+        quicksort,
+        insertionsort,
+        bubblesorta,
+        bubblesortb,
+        bubblesortc,
+        countingsort,
+        radixsort
     };
 
     // Names of sorting functions
@@ -102,7 +116,13 @@ int main()
         "selection sort A",
         "selection sort B",
         "merge sort",
-        "quick sort"
+        "quick sort",
+        "insertion sort",
+        "bubble sort A",
+        "bubble sort B",
+        "bubble sort C",
+        "counting sort",
+        "radix sort"
     };
 
     for(int i = 0; i < NUM_ALGS; i++)
